@@ -1,0 +1,108 @@
+body
+{
+	background-color:#E6E6E6;
+	font-family:helvetica;
+	margin:0px auto;
+	padding:0px;
+}
+#cart_button
+{
+	margin-top:20px;
+	margin-left:80px;
+	cursor:pointer;
+}
+#cart_button img
+{
+	width:40px;
+	height:40px;
+}
+#cart_button input[type="button"]
+{
+	background:none;
+	border:none;
+	background-color:red;
+	border-radius:100%;
+	height:30px;
+	width:30px;
+	margin-top:0px;
+	color:white;
+	font-size:17px;
+	cursor:pointer;
+}
+#mycart
+{
+	display:none;
+	background-color:white;
+	width:800px;
+	margin-left:100px;
+}
+#mycart .cart_items
+{
+	border-bottom:1px dashed silver;
+	padding:20px;
+	padding-left:10px;
+}
+#mycart .cart_items img
+{
+	width:70px;
+	height:50px;
+	float:left;
+}
+#mycart .cart_items p
+{
+	margin:0px;
+	font-size:17px;
+	color:green;
+}
+h1
+{
+	margin-top:100px;
+	color:green;
+	text-align:center;
+}
+#item_div
+{
+	float:left;
+	margin-left:60px;
+}
+.items
+{
+	padding:20px;
+	background-color:white;
+	width:250px;
+	height:350px;
+	margin-top:20px;
+	box-shadow:0px 0px 10px 0px #A4A4A4;
+	box-sizing:border-box;
+	float:left;
+	margin:20px;
+	position:relative;
+}
+.items:hover input[type="button"]
+{
+	display:block;
+}
+.items input[type="button"]
+{
+	display:none;
+	background:none;
+	background-color:#3ADF00;
+	width:200px;
+	height:50px;
+	border:none;
+	font-size:20px;
+	color:white;
+	position:absolute;
+	top:150px;
+	left:25px;
+	cursor:pointer;
+}
+.items img
+{
+	width:200px;
+	height:200px;
+}
+.items p
+{
+	color: green;
+}

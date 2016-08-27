@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'cart_style.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="{% static 'jquery.cookie.js' %}"></script>
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+
+      $.ajax({
+        type:'post',
+        url:'/add',
+        data:{
+          total_cart_items:"item_count"
+        },
+        success:function(json) {
+          document.getElementById("item_count").value=json['item_count'];
+        }
+      });
+
+    });
+
+
+//{#    $(document).ready(function()#}
+//{##}
+//{#       var id = $(this).attr('id');#}
+//{#        alert(id);#}
+//{#        $("#itemX").click(cart(id));#}
+//{#    });#}
+//
+//{#          function cart(id){#}
+//
+//{#        function getCookie(name) {#}
+//{#       var cookieValue = null;#}
+//{#       if (document.cookie && document.cookie != '') {#}
+//{#         var cookies = document.cookie.split(';');#}
+//{#         for (var i = 0; i < cookies.length; i++) {#}
+//{#         var cookie = jQuery.trim(cookies[i]);#}
+//{#         // Does this cookie string begin with the name we want?#}
+//{#         if (cookie.substring(0, name.length + 1) == (name + '=')) {#}
+//{#             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
+//{#             break;#}
+//{#          }#}
+//{#     }#}
+//{# }#}
+//{# return cookieValue;#}
+//{# #}
+
+        $(document).on('click','.button',function(e) {
+    var id = $(this).attr('id');
+//{#        alert(id);#}
+ e.preventDefault();
+     var csrftoken = $.cookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+
+	  var ele=document.getElementById(id);
+
+	  var name=document.getElementById(id+"_name").value;
+	  var price=document.getElementById(id+"_price").value;
+      var item_count = document.getElementById("item_count").value;
+            var src = document.getElementById("img").src;
+	  $.ajax({
+        csrfmiddlewaretoken : csrftoken,
+        type:"POST",
+        url:'/add/',
+        data:{
+
+          item_name:name,
+          item_price:price,
+          item_count:item_count
+        },
+        success : function(json) {
+      console.log(json); // another sanity check
+      //On success show the data posted to server as a message
+      alert('Hi '+json['item_name'] +'!.' + ' You have entered password:'+      json['item_price']);
+             document.getElementById("item_count").value=json['item_count'];
+           $("#mycart").append("Item is :"+json['item_name']+" and price is :"+json['item_price']);
+
+
+ }
+      });
+
+    });
+//{#        }#}
+
+
+
+
+</script>
+<script>
+$(document).ready(function(){
+    $("#cart_button").click(function(){
+        $("#mycart").slideToggle();
+    });
+});
+</script>
+</head>
+
+<body>
+<form method="post"> {% csrf_token %}
+<p id="cart_button" onclick="show_cart();">
+  <img src="{% static 'cart_icon.png' %}">
+  <input type="button" id="item_count" value="{{ item_count }}">
+</p>
+
+<div id="mycart" class="mycart">
+</div>
+
+<h1>Simple Add To Cart System Using jQuery,Ajax And Django</h1>
+
+<div id="item_div">
+
+  <div class="items" id="item1">
+    <img src="{% static 'product1.jpg' %}" id="img" >
+    <input type="button" class="button" value="Add To CART" id="item1">
+    <p>Simple Navy Blue T-Shirt</p>
+    <p>Price - $95</p>
+    <input type="hidden" id="item1_name" value="Simple Navy Blue T-Shirt">
+    <input type="hidden" id="item1_price" value="$95">
+  </div>
+
+  <div class="items" id="item2">
+    <img src="{% static 'product2.jpg' %}">
+    <input type="button" class="button" value="Add To CART" id="item2">
+    <p>Trendy T-Shirt With Back Design</p>
+    <p>Price - $105</p>
+    <input type="hidden" id="item2_name" value="Trendy T-Shirt With Back Design">
+    <input type="hidden" id="item2_price" value="$105">
+  </div>
+
+  <div class="items" id="item3">
+    <img src="{% static 'product3.jpg' %}">
+    <input type="button" class="button" value="Add To CART" id="item3">
+    <p>Two Color Half-Sleeves T-Shirt</p>
+    <p>Price - $120</p>
+    <input type="hidden" id="item3_name" value="Two Color Half-Sleeves T-Shirt">
+    <input type="hidden" id="item3_price" value="$120">
+  </div>
+
+  <div class="items" id="item4">
+    <img src="{% static 'product4.jpg' %}">
+    <input type="button" class="button" value="Add To CART" id="item4">
+    <p>Stylish Grey Chinos For Mens</p>
+    <p>Price - $140</p>
+    <input type="hidden" id="item4_name" value="Stylish Grey Chinos For Mens">
+    <input type="hidden" id="item4_price" value="$140">
+  </div>
+
+  <div class="items" id="item5">
+    <img src="{% static 'product5.jpg' %}">
+    <input type="button" class="button" value="Add To CART" id="item5">
+    <p>Comfortable Pants For Working</p>
+    <p>Price - $130</p>
+    <input type="hidden" id="item5_name" value="Comfortable Pants For Working">
+    <input type="hidden" id="item5_price" value="$130">
+  </div>
+
+  <div class="items" id="item6">
+    <img src="{% static 'product6.jpg' %}">
+    <input type="button" class="button" value="Add To CART" id="item6">
+    <p>Slim Track Pant For Jogging</p>
+    <p>Price - $90</p>
+    <input type="hidden" id="item6_name" value="Slim Track Pant For Jogging">
+    <input type="hidden" id="item6_price" value="$90">
+  </div>
+
+</div>
+</form>
+</body>
+</html>
